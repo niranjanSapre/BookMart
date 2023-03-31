@@ -40,7 +40,9 @@ export default function Price() {
   const [modalVisible, setModalVisible] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const [isbnNumber, setisbnNumber] = useState("");
-  const [text, setText] = useState("");
+  const [text, setText] = useState(
+    "This Price is based on Your Book Condition"
+  );
   const [estPrice, setEstPrice] = useState("");
   //const [isSelected, setSelection] = useState(true);
   const send = () => {
@@ -96,6 +98,11 @@ export default function Price() {
     return null;
   }
 
+  const combinedFunction = () => {
+    setText("This Price is based on Your Book Condition");
+    setModalVisible(false);
+  };
+
   return (
     <NativeBaseProvider>
       <View backgroundColor={"#ffffff"} flex={1}>
@@ -127,7 +134,7 @@ export default function Price() {
                       </Text>
                       <Pressable
                         style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}
+                        onPress={() => combinedFunction()}
                       >
                         <Text fontFamily={"Poppins"} style={styles.okText}>
                           ok
