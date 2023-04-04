@@ -1,229 +1,383 @@
-import { StyleSheet } from "react-native";
-import React, { useLayoutEffect } from "react";
+import { StyleSheet, Modal, Alert, Pressable } from "react-native";
+import React, { useLayoutEffect, useState } from "react";
 import {
-  responsiveHeight,
-  responsiveWidth,
-  responsiveFontSize,
+    responsiveHeight,
+    responsiveWidth,
+    responsiveFontSize,
 } from "react-native-responsive-dimensions";
 import { useNavigation } from "@react-navigation/native";
 import {
-  NativeBaseProvider,
-  Button,
-  Center,
-  Image,
-  Box,
-  Text,
-  Circle,
-  View,
-  Stack,
-  Input,
-  HStack,
-  Pressable,
+    NativeBaseProvider,
+    Button,
+    Center,
+    Image,
+    Box,
+    Text,
+    Circle,
+    View,
+    Stack,
+    Input,
+    HStack,
+    KeyboardAvoidingView,
 } from "native-base";
 import { useFonts } from "expo-font";
 import { bml, Mail, Password, Loginimg } from "../assets";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 export default function Login() {
-  const navigation = useNavigation();
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
+    const navigation = useNavigation();
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [modalVisible, setModalVisible] = useState(false);
+    const [text, setText] = useState("");
+
+    //Next Page Navigation
+    const nextPage = () => {
+        navigation.navigate("HomeScreen");
+    };
+
+    //Post API call for login
+    // const userLogin = async () => {
+    //     if (username === "" || password === "") {
+    //         setText("Please Fill All Details");
+    //         setModalVisible(true);
+    //         return;
+    //     }
+
+    //     const url = "http://192.168.0.108:80/api/auth/login";
+    //     let result = await fetch(url, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({ username, password }),
+    //     });
+    //     //console.log(result)
+    //     result = await result.json();
+    //     console.log(result);
+    //     if (result.status === "unauthorized") {
+    //         setText("Invalid Credentials");
+    //         setModalVisible(true);
+    //         return;
+    //     }
+    //     //setText("Login sucessful");
+    //     //setModalVisible(true);
+    //     nextPage();
+    // };
+
+    //Disable header of page
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShown: false,
+        });
+    }, []);
+
+    //Setting font for page
+    const [loaded] = useFonts({
+        Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
     });
-  }, []);
-  const [loaded] = useFonts({
-    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
-  });
-  if (!loaded) {
-    return null;
-  }
-  return (
-    <NativeBaseProvider>
-      <View backgroundColor={"#ffffff"} flex={1}>
-        <View>
-          <Circle style={styles.Circle1} />
-          <Circle style={styles.Circle2} />
-          <Circle style={styles.Circle3} />
-        </View>
-        <View>
-          <Image
-            position={"absolute"}
-            width={60}
-            height={70}
-            left={responsiveWidth(80)}
-            top={8}
-            source={bml}
-            alt="Alternate Text"
-          />
-        </View>
-        <View>
-          <Box>
-            <Text style={styles.LoginText}>Welcome Back!</Text>
-            <Center>
-              <Image
-                position={"absolute"}
-                width={220}
-                height={230}
-                left={responsiveWidth(19)}
-                top={responsiveHeight(25)}
-                source={Loginimg}
-                alt="Alternate Text"
-              />
-            </Center>
-          </Box>
-          <View top={responsiveHeight(55)}>
-            <Stack space={2} w="70%" maxW="300px" mx={20}>
-              <HStack>
-                <MaterialCommunityIcons
-                  name="account"
-                  size={28}
-                  color="black"
-                  position={"absolute"}
-                  left={"-20%"}
-                  top={"17%"}
-                  source={Mail}
-                  alt="Alternate Text"
-                />
-                <View style={styles.InputEmail}>
-                  <Input
-                    width={"100%"}
-                    fontSize={responsiveFontSize(1.8)}
-                    fontFamily="Poppins"
-                    bgColor={"#FAE5DF"}
-                    borderColor={"#FAE5DF"}
-                    height={responsiveHeight(5.5)}
-                    variant="rounded"
-                    placeholder="Enter Email "
-                  />
-                </View>
-              </HStack>
-              <HStack>
-                <MaterialIcons
-                  name="lock"
-                  size={28}
-                  color="black"
-                  position={"absolute"}
-                  left={"-20%"}
-                  top={"17%"}
-                  source={Password}
-                  alt="Alternate Text"
-                />
-                <View style={styles.InputEmail}>
-                  <Input
-                    width={"100%"}
-                    fontSize={responsiveFontSize(1.8)}
-                    fontFamily="Poppins"
-                    bgColor={"#FAE5DF"}
-                    borderColor={"#FAE5DF"}
-                    height={responsiveHeight(5.5)}
-                    variant="rounded"
-                    placeholder="Enter password"
-                  />
-                </View>
-              </HStack>
-            </Stack>
-          </View>
-        </View>
-        <View top={responsiveHeight(58)}>
-          <HStack space={1}>
-            <Text style={styles.Accounttxt} fontFamily="Poppins">
-              Don't have a account?
-            </Text>
-            <Button
-              backgroundColor={"#ffffff"}
-              left={responsiveWidth(-33)}
-              top={responsiveHeight(-0.5)}
-              onPress={() => navigation.navigate("Register")}
-            >
-              <Text fontFamily="Poppins" color="#ED7966">
-                Sign up
-              </Text>
-            </Button>
-          </HStack>
-        </View>
-        <Text style={styles.ForgetPassword} fontFamily="Poppins">
-          Forget Password?
-        </Text>
-        <Button
-          //alignItems="center"
-          //position="fixed"
-          width={responsiveWidth(90)}
-          height={68}
-          top={responsiveHeight(65)}
-          marginRight={20}
-          marginLeft={responsiveWidth(5)}
-          backgroundColor="#ED7966"
-          onPress={() => navigation.navigate("HomeScreen")}
-        >
-          <Text fontFamily="Poppins" fontSize={24} color="#ffffff">
-            Login
-          </Text>
-        </Button>
-      </View>
-    </NativeBaseProvider>
-  );
+    if (!loaded) {
+        return null;
+    }
+
+    //Frontend code for page
+    return (
+        <NativeBaseProvider>
+            <View backgroundColor={"#ffffff"} flex={1}>
+                <KeyboardAvoidingView
+                    behavior="position"
+                    keyboardVerticalOffset={144}
+                >
+                    <View>
+                        <Circle style={styles.Circle1} />
+                        <Circle style={styles.Circle2} />
+                        <Circle style={styles.Circle3} />
+                    </View>
+                    <View>
+                        <Image
+                            position={"absolute"}
+                            width={60}
+                            height={70}
+                            left={responsiveWidth(40)}
+                            top={8}
+                            source={bml}
+                            alt="Alternate Text"
+                        />
+                    </View>
+                    <View>
+                        <Box>
+                            <Text style={styles.LoginText}>Welcome Back!</Text>
+                            <Center>
+                                <Image
+                                    width={220}
+                                    height={230}
+                                    top={responsiveHeight(25)}
+                                    source={Loginimg}
+                                    alt="Alternate Text"
+                                />
+                            </Center>
+                        </Box>
+                        <View top={responsiveHeight(25)}>
+                            <Stack space={2} w="70%" maxW="300px" mx={20}>
+                                <HStack>
+                                    <MaterialCommunityIcons
+                                        name="account"
+                                        size={28}
+                                        color="black"
+                                        position={"absolute"}
+                                        left={"-20%"}
+                                        top={"17%"}
+                                        source={Mail}
+                                        alt="Alternate Text"
+                                    />
+                                    <View style={styles.InputEmail}>
+                                        <Input
+                                            placeholder="Enter your username"
+                                            fontSize={responsiveFontSize(1.8)}
+                                            height={responsiveHeight(5.5)}
+                                            variant="rounded"
+                                            fontFamily={"Poppins"}
+                                            bgColor={"#FAE5DF"}
+                                            borderColor={"#FAE5DF"}
+                                            onChangeText={(text) =>
+                                                setUsername(text)
+                                            }
+                                        />
+                                    </View>
+                                </HStack>
+                                <HStack>
+                                    <MaterialIcons
+                                        name="lock"
+                                        size={28}
+                                        color="black"
+                                        position={"absolute"}
+                                        left={"-20%"}
+                                        top={"17%"}
+                                        source={Password}
+                                        alt="Alternate Text"
+                                    />
+                                    <View style={styles.InputEmail}>
+                                        <Input
+                                            width={"100%"}
+                                            fontSize={responsiveFontSize(1.8)}
+                                            fontFamily="Poppins"
+                                            bgColor={"#FAE5DF"}
+                                            borderColor={"#FAE5DF"}
+                                            height={responsiveHeight(5.5)}
+                                            variant="rounded"
+                                            placeholder="Enter password"
+                                            onChangeText={(text) =>
+                                                setPassword(text)
+                                            }
+                                            secureTextEntry
+                                        />
+                                    </View>
+                                </HStack>
+                            </Stack>
+                        </View>
+                    </View>
+                    <View top={responsiveHeight(26)} left={30}>
+                        <HStack space={6}>
+                            <Text
+                                style={styles.Accounttxt}
+                                fontFamily="Poppins"
+                            >
+                                Don't have a account?
+                            </Text>
+                            <Button
+                                backgroundColor={"#ffffff"}
+                                left={responsiveWidth(-38)}
+                                top={responsiveHeight(-0.4)}
+                                onPress={() => navigation.navigate("Register")}
+                            >
+                                <Text fontFamily="Poppins" color="#ED7966">
+                                    Sign up
+                                </Text>
+                            </Button>
+                        </HStack>
+                    </View>
+                    <View top={responsiveHeight(4)}>
+                    <Text style={styles.ForgetPassword} fontFamily="Poppins">
+                        Forgot Password?
+                    </Text>
+                    </View>
+                    <View style={styles.tooltip} left={35}>
+                        <View
+                            style={styles.container}
+                            backgroundColor={"amber.300"}
+                        >
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={modalVisible}
+                                onResquestClose={() => {
+                                    Alert.alert("Modal has been closed");
+                                }}
+                            >
+                                <View style={styles.container}>
+                                    <View style={styles.modalView}>
+                                        <Text
+                                            fontFamily={"Poppins"}
+                                            textAlign="center"
+                                        >
+                                            {text}
+                                        </Text>
+                                        <Pressable
+                                            style={[
+                                                styles.button,
+                                                styles.buttonClose,
+                                            ]}
+                                            onPress={() =>
+                                                setModalVisible(!modalVisible)
+                                            }
+                                        >
+                                            <Text
+                                                fontFamily={"Poppins"}
+                                                style={styles.okText}
+                                            >
+                                                ok
+                                            </Text>
+                                        </Pressable>
+                                    </View>
+                                </View>
+                            </Modal>
+                        </View>
+                    </View>
+                    <Button
+                        width={responsiveWidth(90)}
+                        height={68}
+                        top={responsiveHeight(36)}
+                        marginRight={20}
+                        marginLeft={responsiveWidth(5)}
+                        backgroundColor="#ED7966"
+                        onPress={() => navigation.navigate("HomeScreen")}
+                    >
+                        <Text
+                            fontFamily="Poppins"
+                            fontSize={24}
+                            color="#ffffff"
+                        >
+                            Login
+                        </Text>
+                    </Button>
+                </KeyboardAvoidingView>
+            </View>
+        </NativeBaseProvider>
+    );
 }
 
 const styles = StyleSheet.create({
-  Circle1: {
-    position: "absolute",
-    width: 331,
-    height: 322,
-    left: -117,
-    top: -111,
-    backgroundColor: "#ED7966",
-    opacity: 0.7,
-  },
-  Circle2: {
-    position: "absolute",
-    width: 169,
-    height: 167,
-    left: 107,
-    top: -54,
-    backgroundColor: "#FAE5DF",
-    opacity: 0.6,
-  },
-  Circle3: {
-    position: "absolute",
-    width: 88,
-    height: 85,
-    left: -40,
-    top: 169,
-    backgroundColor: "#F5CAC2",
-    opacity: 0.87,
-  },
-  ForgetPassword: {
-    top: responsiveHeight(58),
-    //alignContent: "center",
-    right: responsiveWidth(-57),
-  },
-  LoginText: {
-    textAlign: "center",
-    fontSize: responsiveFontSize(3),
-    fontWeight: 400,
-    lineHeight: 36,
-    width: responsiveWidth(100),
-    marginTop: 30,
-    top: responsiveHeight(25),
-    fontFamily: "Poppins",
-  },
-  InputEmail: {
-    width: "100%",
-    fontSize: responsiveFontSize(1.8),
+    Circle1: {
+        position: "absolute",
+        width: 331,
+        height: 322,
+        left: -117,
+        top: -111,
+        backgroundColor: "#ED7966",
+        opacity: 0.7,
+    },
+    Circle2: {
+        position: "absolute",
+        width: 169,
+        height: 167,
+        left: 107,
+        top: -54,
+        backgroundColor: "#FAE5DF",
+        opacity: 0.6,
+    },
+    Circle3: {
+        position: "absolute",
+        width: 88,
+        height: 85,
+        left: -40,
+        top: 169,
+        backgroundColor: "#F5CAC2",
+        opacity: 0.87,
+    },
+    ForgetPassword: {
+        top: responsiveHeight(21),
+        textAlign: "right",
+        //alignContent: "center",
+        right: responsiveWidth(8),
+    },
+    LoginText: {
+        textAlign: "center",
+        fontSize: responsiveFontSize(3),
+        fontWeight: 400,
+        lineHeight: 36,
+        width: responsiveWidth(100),
+        marginTop: 30,
+        top: responsiveHeight(26),
+        fontFamily: "Poppins",
+    },
+    InputEmail: {
+        width: "100%",
+        fontSize: responsiveFontSize(1.8),
 
-    height: responsiveHeight(5.5),
-  },
-  Accounttxt: {
-    textAlign: "center",
-    fontSize: responsiveFontSize(1.8),
-    fontWeight: 400,
-    lineHeight: 36,
-    width: responsiveWidth(100),
-    //marginTop: 0.2,
-    left: -20,
-    //height={0}
-    //marginRight={responsiveWidth(9)}
-    //top: responsiveHeight(2.5),
-  },
+        height: responsiveHeight(5.5),
+    },
+    Accounttxt: {
+        textAlign: "center",
+        fontSize: responsiveFontSize(1.8),
+        fontWeight: 400,
+        lineHeight: 36,
+        width: responsiveWidth(100),
+        //marginTop: 0.2,
+        left: -20,
+        //height={0}
+        //marginRight={responsiveWidth(9)}
+        //top: responsiveHeight(2.5),
+    },
+    container: {
+        //opacity: 0.6,
+        flex: 1,
+        backgroundColor: "#FFFFFF95",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    InputName: {
+        width: responsiveWidth(71),
+        fontSize: responsiveFontSize(1.5),
+        lineHeight: 36,
+        paddingTop: 10,
+        //height: responsiveHeight(),
+        opacity: 0.7,
+    },
+    modalView: {
+        //opacity: 0.95,
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    button: {
+        top: responsiveHeight(2),
+        width: responsiveWidth(35),
+        height: responsiveHeight(4),
+        borderRadius: 5,
+        padding: 4,
+        elevation: 12,
+    },
+    buttonClose: {
+        backgroundColor: "#ED7966",
+    },
+    modalText: {
+        //marginBotttom: 15,
+        textAlign: "center",
+        fontWeight: "bold",
+    },
+    okText: {
+        textAlign: "center",
+        color: "white",
+    },
 });

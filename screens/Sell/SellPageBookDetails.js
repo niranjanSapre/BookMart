@@ -5,8 +5,6 @@ import {
   Alert,
   Pressable,
   Keyboard,
-  ScrollView,
-  KeyboardAvoidingView,
 } from "react-native";
 
 import React, { useLayoutEffect, useState, useEffect } from "react";
@@ -29,6 +27,8 @@ import {
   VStack,
   TextArea,
   Box,
+  ScrollView,
+  KeyboardAvoidingView
 } from "native-base";
 import { useFonts } from "expo-font";
 import * as Progress from "react-native-progress";
@@ -63,7 +63,8 @@ export default function SellPageBookDetails() {
       pages: userBookData.items[0].volumeInfo.pageCount.toString(),
       medium: userBookData.items[0].volumeInfo.language,
       authorName: userBookData.items[0].volumeInfo.authors[0],
-      genre: route.params.genre,
+      aboutBook : userBookData.items[0].volumeInfo.authors[0],
+      genre: userBookData.items[0].volumeInfo.categories[0],
     });
     //console.log(route.params.isbn);
   };
@@ -98,28 +99,31 @@ export default function SellPageBookDetails() {
 
   return (
     <NativeBaseProvider>
-      <View backgroundColor={"#ffffff"} flex={1}>
+      <View backgroundColor={"#ffffff"} flex={1} position={"relative"}>
         {isLoading ? (
           <View style={styles.loader}>
             <ActivityIndicator size="large" color="#ED7966" />
           </View>
         ) : (
           <View>
-            <View top={50}>
+            <View top={50} position={"relative"}>
               <Center>
                 <Progress.Bar progress={0.48} width={350} color={"#ED7966"} />
               </Center>
             </View>
-            <View>
+            <View bottom={5}>
               <Text style={styles.genreText} fontFamily="Poppins">
                 Book Details
               </Text>
             </View>
-
-            <Stack space={5} w="80%" maxW="300px" mx={20}>
+            
+            <View top={10}>
+            
+            <Stack space={5} w="80%" mx={20} bottom={5}>
               <HStack
                 space={2}
-                top={responsiveHeight(15)}
+                top={24}
+                //top = {responsiveHeight(15)}
                 left={responsiveWidth(-15)}
               >
                 <View style={styles.ISBNTxt}>
@@ -138,7 +142,8 @@ export default function SellPageBookDetails() {
               </HStack>
               <HStack
                 space={2}
-                top={responsiveHeight(15)}
+                //top={responsiveHeight(5)}
+                top={24}
                 left={responsiveWidth(-15)}
               >
                 <View style={styles.ISBNTxt}>
@@ -158,7 +163,8 @@ export default function SellPageBookDetails() {
               </HStack>
               <HStack
                 space={2}
-                top={responsiveHeight(15)}
+                //top={responsiveHeight(15)}
+                top={24}
                 left={responsiveWidth(-15)}
               >
                 <View style={styles.ISBNTxt}>
@@ -190,7 +196,8 @@ export default function SellPageBookDetails() {
               </HStack>
               <HStack
                 space={2}
-                top={responsiveHeight(15)}
+                //top={responsiveHeight(15)}
+                top={24}
                 left={responsiveWidth(-15)}
               >
                 <View style={styles.ISBNTxt}>
@@ -210,7 +217,8 @@ export default function SellPageBookDetails() {
               </HStack>
               <HStack
                 space={2}
-                top={responsiveHeight(15)}
+                //top={responsiveHeight(15)}
+                top={24}
                 left={responsiveWidth(-15)}
               >
                 <View style={styles.ISBNTxt}>
@@ -228,29 +236,8 @@ export default function SellPageBookDetails() {
                   />
                 </View>
               </HStack>
-              <View top={responsiveHeight(12) } right={responsiveWidth(17)}>
-                <VStack space={4}  paddingLeft={2} marginTop={4}>
-                  <View style={styles.ISBNTxt}>
-                    <Text fontFamily="Poppins">
-                      About Book - 
-                    </Text>
-                  </View>
-                  <View style={styles.InputName}>
-                    <TextArea
-                      width={"120%"}
-                      h={40}
-                      fontSize={responsiveFontSize(1.6)}
-                      fontFamily="Poppins"
-                      bgColor={"#FAE5DF"}
-                      borderColor={"#FAE5DF"}
-                      rounded={6}
-                      defaultValue={userBookData.items[0].volumeInfo.description}
-                      placeholder="Please enter the detail description about the issue"
-                      />
-                  </View>
-                </VStack>
-              </View>
             </Stack>
+            </View>
             <View style={styles.tooltip} left={35}>
               <View style={styles.container} backgroundColor={"amber.300"}>
                 <Modal
@@ -291,6 +278,7 @@ export default function SellPageBookDetails() {
               </Text>
             </Button>
           </View>
+
         )}
       </View>
     </NativeBaseProvider>
@@ -308,6 +296,7 @@ const styles = StyleSheet.create({
     width: responsiveWidth(90),
     height: responsiveHeight(8),
     marginTop: responsiveHeight(93),
+    //top: 400,
     marginRight: 20,
     marginLeft: 20,
   },
@@ -374,7 +363,8 @@ const styles = StyleSheet.create({
     width: responsiveWidth(71),
     fontSize: responsiveFontSize(1.5),
     lineHeight: 36,
-    height: responsiveHeight(5.5),
+    paddingTop: 10,
+    //height: responsiveHeight(),
     opacity: 0.7
   },
   modalView: {

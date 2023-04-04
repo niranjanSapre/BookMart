@@ -86,7 +86,7 @@ export default function Account() {
           marginLeft={responsiveWidth(2.5)}
           rounded={0}
           backgroundColor="#ED7966"
-          //onPress={() => navigation.navigate("HomeScreen")}
+          onPress={() => navigation.navigate("PostedProduct")}
         >
           <HStack space={40}>
             <Text
@@ -115,7 +115,7 @@ export default function Account() {
           marginLeft={responsiveWidth(2.5)}
           rounded={0}
           backgroundColor="#ED7966"
-          //onPress={() => navigation.navigate("HomeScreen")}
+          onPress={() => navigation.navigate("MyOrder")}
         >
           <HStack space={responsiveWidth(50)}>
             <Text

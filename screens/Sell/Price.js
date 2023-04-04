@@ -162,11 +162,11 @@ export default function Price() {
                 </View>
               </View>
             </HStack>
-
+                  <Stack space={5}>
             <HStack alignItems="center" space={4}>
               <Text fontSize={responsiveFontSize(1.8)} fontFamily={"Poppins"}>
                 {" "}
-                I want to set Price
+                I want to list the book for rent also
               </Text>
               <Switch
                 trackColor={{ true: "#ed7966", false: "lightgrey" }}
@@ -177,9 +177,9 @@ export default function Price() {
                 onChange={handleChange}
               />
             </HStack>
-            <HStack space={2.5}>
+            <HStack space={5}>
               <View display={viewEnabled} style={styles.EstTxt}>
-                <Text fontFamily={"Poppins"}>Desired Price -</Text>
+                <Text fontFamily={"Poppins"}>Rental Price -</Text>
               </View>
 
               <View display={viewEnabled} style={styles.EstPrice}>
@@ -191,6 +191,21 @@ export default function Price() {
                 />
               </View>
             </HStack>
+            <HStack space={5}>
+              <View display={viewEnabled} style={styles.EstTxt}>
+                <Text fontFamily={"Poppins"}>Days -</Text>
+              </View>
+
+              <View display={viewEnabled} style={styles.EstPrice}>
+                <Input
+                  fontFamily="Poppins"
+                  bgColor={"#FAE5DF"}
+                  borderColor={"#FAE5DF"}
+                  variant="rounded"
+                />
+              </View>
+            </HStack>
+            </Stack>
             {/* <Checkbox
               value={isSelected}
               onValueChange={setSelection}

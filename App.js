@@ -21,6 +21,13 @@ import Buy1 from "./screens/Buy/Buy1";
 import Settings from "./screens/Account/Settings";
 import EditProfile from "./screens/Account/EditProfile";
 import CustomerService from "./screens/Account/CustomerService";
+import PostedProduct from "./screens/Account/PostedProduct";
+import Chat from "./screens/Chat";
+import OrderSummary from "./screens/Buy/OrderSummary";
+import MyOrder from "./screens/Account/MyOrder";
+import OrderDetails from "./screens/Account/OrderDetails";
+import Support from "./screens/Account/Support";
+import LegalAndAbout from "./screens/Account/LegalAndAbout";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -39,7 +46,12 @@ export default function App() {
         <Stack.Screen name="HomeScreen" component={Tabs} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Account" component={Account} />
-        <Stack.Screen name="SellPageGenre" component={SellPageGenre} />
+        <Stack.Screen name="PostedProduct" component={PostedProduct} />
+        <Stack.Screen name="OrderSummary" component={OrderSummary} />
+        <Stack.Screen name="MyOrder" component={MyOrder} />
+        <Stack.Screen name="OrderDetails" component={OrderDetails} />
+        <Stack.Screen name="Chat" component={Chat} />
+        {/* <Stack.Screen name="SellPageGenre" component={SellPageGenre} /> */}
 
         <Stack.Screen
           name="SellPageBookDetails"
@@ -56,6 +68,8 @@ export default function App() {
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="CustomerService" component={CustomerService} />
+        <Stack.Screen name="Support" component={Support} />
+        <Stack.Screen name="LegalAndAbout" component={LegalAndAbout} />
       </Stack.Navigator>
     </NavigationContainer>
   );

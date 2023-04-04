@@ -57,12 +57,12 @@ const StartSellingPage = () => {
           //alignItems="center"
           //position="fixed"
           width={250}
-          height={39}
+          height={responsiveHeight(5)}
           top={responsiveHeight(65)}
           marginRight={20}
           marginLeft={responsiveWidth(19)}
           backgroundColor="#ED7966"
-          onPress={() => navigation.navigate("SellPageGenre")}
+          onPress={() => navigation.navigate("ISBNPage")}
         >
           <Text fontFamily="Poppins" fontSize={14} color="#ffffff">
             Start Selling Now!

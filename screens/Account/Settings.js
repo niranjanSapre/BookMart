@@ -110,7 +110,7 @@ export default function Settings() {
             marginLeft={responsiveWidth(2.5)}
             rounded={0}
             backgroundColor="#ED7966"
-            //onPress={() => navigation.navigate("HomeScreen")}
+            onPress={() => navigation.navigate("LegalAndAbout")}
           >
             <HStack space={responsiveWidth(38)}>
               <Text

@@ -247,7 +247,12 @@ export default function Buy1() {
             }}
             size="60"
           >
-            <Button backgroundColor={"#f5f5f5"} width={responsiveWidth(50)}>
+            <Button
+              backgroundColor={"#f5f5f5"}
+              width={responsiveWidth(50)}
+              borderWidth={2}
+              onPress={() => navigation.navigate("Chat")}
+            >
               <HStack space={2}>
                 <Text color={"black"} fontFamily="Poppins" fontSize={22}>
                   Chat
@@ -262,9 +267,11 @@ export default function Buy1() {
               </HStack>
             </Button>
             <Button
-              variant="outline"
+              //variant="outline"
               backgroundColor={"#ED7966"}
               width={responsiveWidth(50)}
+              borderWidth={2}
+              onPress={() => navigation.navigate("OrderSummary")}
             >
               <Text color={"#ffffff"} fontFamily="Poppins" fontSize={22}>
                 Buy Now

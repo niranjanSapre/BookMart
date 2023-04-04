@@ -19,6 +19,8 @@ import {
   Stack,
   Input,
   HStack,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "native-base";
 import { useFonts } from "expo-font";
 import { bml, Name, Phone, Mail, Password, Cpassword } from "../assets";
@@ -39,9 +41,12 @@ export default function Register() {
   }
   return (
     <NativeBaseProvider>
-      <View backgroundColor={"#ffffff"} flex={1}>
+      <ScrollView showsVerticalScrollIndicator={true}>
+      <KeyboardAvoidingView behavior="position">
+      <View backgroundColor={"#ffffff"}>
+      
         {/* Circle View */}
-        <View>
+        {/* <View>
           <Circle
             position={"absolute"}
             width={331}
@@ -69,7 +74,7 @@ export default function Register() {
             backgroundColor={"#F5CAC2"}
             opacity={0.87}
           />
-        </View>
+        </View> */}
         {/* <View backgroundColor={"black"}>
           <Image
             position={"absolute"}
@@ -81,7 +86,8 @@ export default function Register() {
             alt="Alternate Text"
           />
         </View> */}
-        <View top={responsiveHeight(32)}>
+        
+        <View top={responsiveHeight(32)} position={"relative"}>
           <Text
             textAlign="center"
             fontSize={responsiveFontSize(3)}
@@ -108,8 +114,7 @@ export default function Register() {
           </Text>
         </View>
         {/* Input View for Registeration */}
-        <View top={responsiveHeight(35)}>
-          <Stack space={2} w="70%" maxW="300px" mx={20}>
+          <Stack space={2} w="70%" maxW="300px" mx={20} top={responsiveHeight(40)}>
             <HStack>
               <MaterialCommunityIcons
                 name="account"
@@ -221,7 +226,6 @@ export default function Register() {
               />
             </HStack>
           </Stack>
-        </View>
         <View top={responsiveHeight(40)}>
           <HStack space={1}>
             <Text style={styles.Accounttxt} fontFamily="Poppins">
@@ -254,7 +258,10 @@ export default function Register() {
             Register
           </Text>
         </Button>
+        
       </View>
+      </KeyboardAvoidingView>
+      </ScrollView>
     </NativeBaseProvider>
   );
 }
