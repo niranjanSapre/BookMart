@@ -32,7 +32,6 @@ const ISBNPage = () => {
     }
     navigation.navigate("SellPageBookDetails", {
       isbnNumber: isbnNumber,
-      genre: route.params.genre,
     });
     // console.log(isbnNumber);
   };

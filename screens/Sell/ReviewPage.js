@@ -37,18 +37,18 @@ export default function ReviewPage() {
     return null;
   }
   const genre = route.params.genre;
-  const arraysplit = (genre) => {
-    let text = "";
-    for (let item in genre) {
-      if (item == genre.length - 1) {
-        text += genre[item];
-      } else {
-        text += genre[item] + ", ";
-      }
-    }
-    console.log(genre.length);
-    return text;
-  };
+  // const arraysplit = (genre) => {
+  //   let text = "";
+  //   for (let item in genre) {
+  //     if (item == genre.length - 1) {
+  //       text += genre[item];
+  //     } else {
+  //       text += genre[item] + ", ";
+  //     }
+  //   }
+  //   console.log(genre.length);
+  //   return text;
+  // };
 
   return (
     <NativeBaseProvider>
@@ -65,7 +65,7 @@ export default function ReviewPage() {
             name="edit"
             size={24}
             color="black"
-            onPress={() => navigation.navigate("SellPageGenre")}
+            onPress={() => navigation.navigate("ISBNPage")}
           />
         </View>
 
@@ -85,7 +85,7 @@ export default function ReviewPage() {
               Author Name -{route.params.authorName}
             </Text>
             <Text fontFamily="Poppins">
-              Genre - {arraysplit(route.params.genre)}
+              Genre - {route.params.genre}
             </Text>
             <Text fontFamily="Poppins">Price -</Text>
             <Text fontFamily="Poppins">Preview Images </Text>
