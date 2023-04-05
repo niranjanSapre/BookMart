@@ -118,7 +118,7 @@ export default function ChatUI() {
       isTyping
       //minComposerHeight={10}
       keyboardShouldPersistTaps="never"
-     placeholder="Message"
+      placeholder="Message"
       scrollToBottomComponent={scrollToBottomComponent}
     />
     </NativeBaseProvider>
