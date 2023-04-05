@@ -29,6 +29,7 @@ import MyOrder from "./screens/Account/MyOrder";
 import OrderDetails from "./screens/Account/OrderDetails";
 import Support from "./screens/Account/Support";
 import LegalAndAbout from "./screens/Account/LegalAndAbout";
+import GenreFilter from "./screens/Buy/GenreFilter";
 //import { background } from "native-base/lib/typescript/theme/styled-system";
 
 const Stack = createNativeStackNavigator();
@@ -53,6 +54,7 @@ export default function App() {
                 <Stack.Screen name="OrderSummary" component={OrderSummary} />
                 <Stack.Screen name="MyOrder" component={MyOrder} />
                 <Stack.Screen name="OrderDetails" component={OrderDetails} />
+                <Stack.Screen name="GenreFilter" component={GenreFilter} />
                 <Stack.Screen
                     name="ChatUI"
                     component={ChatUI}

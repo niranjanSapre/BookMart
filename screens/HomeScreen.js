@@ -90,6 +90,7 @@ export default function HomeScreen() {
             showsHorizontalScrollIndicator={false}
             borderRadius={20}
           >
+            <Pressable onPress={()=>navigation.navigate("GenreFilter")}>
             <Image
               marginRight={2}
               rounded={70}
@@ -102,6 +103,7 @@ export default function HomeScreen() {
               source={Novel}
               alt="Alternate Text"
             />
+            </Pressable>
             <Image
               marginRight={2}
               rounded={70}
