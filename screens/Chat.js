@@ -1,12 +1,11 @@
-import { StyleSheet, Modal, Alert, Pressable, FlatList
- } from "react-native";
+import { StyleSheet, Modal, Alert, Pressable, FlatList } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import {
     responsiveHeight,
     responsiveWidth,
     responsiveFontSize,
 } from "react-native-responsive-dimensions";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import {
     NativeBaseProvider,
     Button,
@@ -25,36 +24,45 @@ import { useFonts } from "expo-font";
 import { bml, Mail, Password, Loginimg } from "../assets";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 
-const Messages=[
-  {
-    id:'1',
-    userName:'Ankit Singh',
-    userImg:require('../assets/images/Profile.png'),
-    messageTime:'4 mins ago',
-    messageText:'Hello',
-  },
-  {
-    id:'2',
-    userName:'Aditya Pandit',
-    userImg:require('../assets/images/Profile.png'),
-    messageTime:'8 mins ago',
-    messageText:'Hello',
-  },
-  {
-    id:'3',
-    userName:'Anuja Ingle',
-    userImg:require('../assets/images/Profile.png'),
-    messageTime:'1 min ago',
-    messageText:'Hello',
-  }
-]
+const Messages = [
+    {
+        id: "1",
+        userName: "Ankit Singh",
+        userImg: require("../assets/images/Profile.png"),
+        messageTime: "4 mins ago",
+        messageText: "Hello",
+    },
+    {
+        id: "2",
+        userName: "Aditya Pandit",
+        userImg: require("../assets/images/Profile.png"),
+        messageTime: "8 mins ago",
+        messageText: "Hello",
+    },
+    {
+        id: "3",
+        userName: "Anuja Ingle",
+        userImg: require("../assets/images/Profile.png"),
+        messageTime: "1 min ago",
+        messageText: "Hello",
+    },
+];
 
 export default function Chat() {
+    const route = useRoute();
     const navigation = useNavigation();
-useLayoutEffect(() => {
+    // const send = () => {
+    //     navigation.navigate("ChatUI", {
+    //       //isbnNumber: route.params.isbnNumber,
+    //       userName: {userName},
+    //     }
+    //     )
+    // }
+    useLayoutEffect(() => {
         navigation.setOptions({
-            headerShown: false,
+            headerShown: true,
         });
     }, []);
     const [loaded] = useFonts({
@@ -67,133 +75,96 @@ useLayoutEffect(() => {
     //Frontend code for page
     return (
         <NativeBaseProvider>
-          <View>
-            <FlatList
-            data={Messages}
-            keyExtractor={item=>item.id}
-            renderItem={({item})=>(
-              <View>
-                <Text>
-                  {item.userName}
-                </Text>
-                </View>
-            )}
-            />
-          </View>
+            <View style={styles.container} backgroundColor={"#ffffff"} flex={1}>
+                <FlatList
+                    data={Messages}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            width={"100%"}
+                            onPress={() => navigation.navigate("ChatUI",{userName:item.userName},{userImg:item.userImg})}
+                        >
+                            <View style={styles.UserInfo}>
+                                <View padding-top={15} padding-bottom={15}>
+                                    <Image
+                                        source={item.userImg}
+                                        width={50}
+                                        height={50}
+                                        top={4}
+                                        border-radius={25}
+                                        alt="Alternative text"
+                                    />
+                                </View>
+                                <View style={styles.TextSection}>
+                                    <View style={styles.UserInfoText}>
+                                        <Text
+                                            style={styles.UserName}
+                                            fontFamily={"Poppins"}
+                                        >
+                                            {item.userName}
+                                        </Text>
+                                        <Text
+                                            style={styles.PostTime}
+                                            fontFamily={"Poppins"}
+                                        >
+                                            {item.messageTime}
+                                        </Text>
+                                    </View>
+                                    <Text
+                                        style={styles.MessageText}
+                                        fontFamily={"Poppins"}
+                                    >
+                                        {item.messageText}
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        
+                    )}
+                />
+            </View>
         </NativeBaseProvider>
     );
 }
 
 const styles = StyleSheet.create({
-    Circle1: {
-        position: "absolute",
-        width: 331,
-        height: 322,
-        left: -117,
-        top: -111,
-        backgroundColor: "#ED7966",
-        opacity: 0.7,
-    },
-    Circle2: {
-        position: "absolute",
-        width: 169,
-        height: 167,
-        left: 107,
-        top: -54,
-        backgroundColor: "#FAE5DF",
-        opacity: 0.6,
-    },
-    Circle3: {
-        position: "absolute",
-        width: 88,
-        height: 85,
-        left: -40,
-        top: 169,
-        backgroundColor: "#F5CAC2",
-        opacity: 0.87,
-    },
-    ForgetPassword: {
-        top: responsiveHeight(21),
-        textAlign: "right",
-        //alignContent: "center",
-        right: responsiveWidth(8),
-    },
-    LoginText: {
-        textAlign: "center",
-        fontSize: responsiveFontSize(3),
-        fontWeight: 400,
-        lineHeight: 36,
-        width: responsiveWidth(100),
-        marginTop: 30,
-        top: responsiveHeight(26),
-        fontFamily: "Poppins",
-    },
-    InputEmail: {
-        width: "100%",
-        fontSize: responsiveFontSize(1.8),
-
-        height: responsiveHeight(5.5),
-    },
-    Accounttxt: {
-        textAlign: "center",
-        fontSize: responsiveFontSize(1.8),
-        fontWeight: 400,
-        lineHeight: 36,
-        width: responsiveWidth(100),
-        //marginTop: 0.2,
-        left: -20,
-        //height={0}
-        //marginRight={responsiveWidth(9)}
-        //top: responsiveHeight(2.5),
-    },
     container: {
         //opacity: 0.6,
-        flex: 1,
-        backgroundColor: "#FFFFFF95",
+        //flex: 1,
+        paddingLeft: 20,
+        paddingRight: 20,
         alignItems: "center",
+        //backgroundColor: "ffffff",
+    },
+    TextSection: {
+        flexDirection: "column",
         justifyContent: "center",
+        padding: 15,
+        paddingLeft: 15,
+        marginleft: 10,
+        width: 300,
+        borderBottomWidth: 1,
+        borderBottomColor: "#cccccc",
     },
-    InputName: {
-        width: responsiveWidth(71),
-        fontSize: responsiveFontSize(1.5),
-        lineHeight: 36,
-        paddingTop: 10,
-        //height: responsiveHeight(),
-        opacity: 0.7,
+    UserInfoText: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginBottom: 5,
     },
-    modalView: {
-        //opacity: 0.95,
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    button: {
-        top: responsiveHeight(2),
-        width: responsiveWidth(35),
-        height: responsiveHeight(4),
-        borderRadius: 5,
-        padding: 4,
-        elevation: 12,
-    },
-    buttonClose: {
-        backgroundColor: "#ED7966",
-    },
-    modalText: {
-        //marginBotttom: 15,
-        textAlign: "center",
+    UserName: {
+        fontSize: 14,
         fontWeight: "bold",
     },
-    okText: {
-        textAlign: "center",
-        color: "white",
+    MessageText: {
+        fontSize: 14,
+        color: "#333333",
+    },
+    UserInfo: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    PostTime: {
+        fontSize: 12,
+        color: "#666",
     },
 });
